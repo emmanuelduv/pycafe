@@ -1,0 +1,50 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Ventes de minutes sur des tickets</h1>{% endblock %}
+{% block contenu_interieur %}{% if object_list %}
+	{% if is_paginated %}
+		<div class="pagination">
+			<span class="step-links">
+				{% if page_obj.has_previous %}
+					{% if vendeur_id %}
+						<a href="{% url listVendeurVentesTkt vendeur_id=vendeur_id %}page{{ page_obj.previous_page_number }}">
+					{% else %}
+						{% if ticket_id %}
+							<a href="{% url listVentesTkt ticket_id=ticket_id %}page{{ page_obj.previous_page_number }}">
+						{% else %}
+							<a href="{% url listTktVentes %}page{{ page_obj.previous_page_number }}">
+						{% endif %}
+					{% endif %}&lt;</a>
+				{% endif %}
+
+				<span class="current">
+					Page {{ page_obj.number }} / {{ paginator.num_pages }}.
+				</span>
+
+				{% if page_obj.has_next %}
+					{% if vendeur_id %}
+						<a href="{% url listVendeurVentesTkt vendeur_id=vendeur_id %}page{{ page_obj.next_page_number }}">
+					{% else %}
+						{% if ticket_id %}
+							<a href="{% url listVentesTkt ticket_id=ticket_id %}page{{ page_obj.next_page_number }}">
+						{% else %}
+							<a href="{% url listTktVentes %}page{{ page_obj.next_page_number }}">
+						{% endif %}
+					{% endif %}&gt;</a>
+				{% endif %}
+			</span>
+		</div>
+	{% endif %}
+
+	<table><tr><td>N°</td><td>Date</td><td>Min vendues</td><td>Montant</td><td>Ticket</td><td>Vendeur</td></tr>
+	{% for vente in object_list %}
+		<tr class="{% cycle 'row1' 'row2' %}"> <td>{{ vente.id }}</td><td>{{ vente.date }}</td>
+		<td>{{ vente.min_vendues }}</td><td>{{ vente.mt }}</td>
+		<td><a href="{% url editTicket pk=vente.ticket.id %}">{{ vente.ticket.id }}</a></td>
+		<td><a href="{% url vendeurDetail pk=vente.vendeur_id %}">{{ vente.vendeur }}</a></td>
+		</tr>
+	{% endfor %}
+	</table>
+{% else %}
+	<p>Pas de vente!</p>
+{% endif %}
+{% endblock %}

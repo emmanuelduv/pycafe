@@ -1,0 +1,39 @@
+{% extends "cyber/base.html" %}
+{% load cyber_fcts %}
+{% block contenu_head %}<h1>Connexions</h1>{% endblock %}
+{% if session_list %}
+	{% block contenu_interieur %}
+		{% if is_paginated %}
+		<div class="pagination">
+			<span class="step-links">
+				{% if page_obj.has_previous %}
+					<a href="{% url listSessions %}page{{ page_obj.previous_page_number }}">&lt;</a>
+				{% endif %}
+
+				<span class="current">
+					Page {{ page_obj.number }} / {{ paginator.num_pages }}.
+				</span>
+
+				{% if page_obj.has_next %}
+					<a href="{% url listSessions %}page{{ page_obj.next_page_number }}">&gt;</a>
+				{% endif %}
+			</span>
+		</div>
+		{% endif %}
+		{% if message %}
+			<p class="message">{{ message }}</p>
+		{% endif %}
+		<table><thead><tr><td>Utilisateur</td><td>Machine</td>
+		<td>Début</td><td>Fin</td><td>Solde init.</td>
+		<td>Solde fin</td><td>Coût</td></tr></thead>
+		{% for s in object_list %}
+			<tr class="{% cycle 'row1' 'row2' %}"><td><a href="{% url utilisateurList pk=s.utilisateur_id %}">{{ s.utilisateur.user }}</a>
+			({{ s.utilisateur.login }})</td><td>{{ s.PC }}</td><td>{{ s.date_debut }}</td>
+			<td>{{ s.date_fin }}</td><td>{{ s.solde_debut }}</td>
+			<td>{{ s.solde_fin }}</td><td>{{ s.solde_debut|sub:s.solde_fin }}</td></tr>
+		{% endfor %}
+		</table>
+	{% endblock %}
+{% else %}
+	<p>Pas de vendeur!</p>
+{% endif %}

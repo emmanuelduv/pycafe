@@ -1,0 +1,33 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Ventes de crédit</h1>{% endblock %}
+{% block contenu_interieur %}{% if object_list %}
+	<ul>
+	{% for vente in object_list %}
+		<li class="{% cycle 'row1' 'row2' %}"> {{ vente.montant }} {{ vente.monnaie }} acheté par <a href="{% url utilisateurList pk=vente.utilisateur.id %}">{{ vente.utilisateur }}</a>
+		le {{ vente.date }}({{ vente.identifiant }})
+		[vendeur : <a href="{% url vendeurDetail pk=vente.vendeur.id %}">{{vente.vendeur}}</a>]
+		</li>
+	{% endfor %}
+	</ul>
+
+	{% if is_paginated %}
+		<div class="pagination">
+			<span class="step-links">
+				{% if page_obj.has_previous %}
+					<a href="{% url listVendeurVentes vendeur_id=vendeur_id %}page{{ page_obj.previous_page_number }}">&lt;</a>
+				{% endif %}
+
+				<span class="current">
+					Page {{ page_obj.number }} / {{ paginator.num_pages }}.
+				</span>
+
+				{% if page_obj.has_next %}
+					<a href="{% url listVendeurVentes vendeur_id=vendeur_id %}page{{ page_obj.next_page_number }}">&gt;</a>
+				{% endif %}
+			</span>
+		</div>
+	{% endif %}
+{% else %}
+	<p>Pas de vente!</p>
+{% endif %}
+{% endblock %}

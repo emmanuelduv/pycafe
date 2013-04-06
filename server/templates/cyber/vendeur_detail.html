@@ -1,0 +1,20 @@
+{% extends "cyber/base.html" %}
+{% if vendeur %}
+	{% block contenu_head %}<h1>{{vendeur.utilisateur}}</h1>{% endblock %}
+	{% block contenu_interieur %}
+	<a href="{% url editVendeur pk=vendeur.id %}">modifier</a>
+	<a href="mailto:{{vendeur.utilisateur.user.email}}">Écrire à {{vendeur.utilisateur.user.first_name}} {{vendeur.utilisateur.user.last_name}}</a>
+	<p>Cumul des ventes enregistrées : {{vendeur.mt_ventes|add:vendeur.mt_ventes_tkt}}.</p>
+	<p>{% if vendeur.vente_set %}
+		<a href="{% url listVendeurVentes vendeur_id=vendeur.id %}">{{vendeur.vente_set.count}} Ventes, montant de {{vendeur.mt_ventes}}</a>
+	{% endif %}
+	{% if vendeur.ticketvente_set %}
+		&nbsp;<a href="{% url listVendeurVentesTkt vendeur_id=vendeur.id %}">{{vendeur.ticketvente_set.count}} Ventes de tickets, montant de {{vendeur.mt_ventes_tkt}}</a>
+	{% endif %}
+	</p>
+	{% endblock %}
+{% else %}
+	<p>Pas de vendeur</p>
+{% endif %}
+<!-- <a href="/vendeur/creer">Enregistrer un nouveau vendeur</a> -->
+

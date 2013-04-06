@@ -1,0 +1,21 @@
+alter table cyber_vendeur engine = innodb;
+alter table cyber_vente engine = innodb;
+alter table django_admin_log engine = innodb;
+alter table django_content_type engine = innodb;
+alter table django_session engine = innodb;
+alter table django_site engine = innodb;
+alter table cyber_utilisateur engine = innodb;
+alter table cyber_pc engine = innodb;
+alter table cyber_cyber engine = innodb;
+alter table cyber_connexion engine = innodb;
+alter table auth_user_user_permissions engine = innodb;
+alter table auth_user_groups engine = innodb;
+alter table auth_user engine = innodb;
+alter table auth_permission engine = innodb;
+alter table auth_group_permissions engine = innodb;
+alter table auth_group engine = innodb;
+alter table cyber_ticketconnexion engine = innodb;
+alter table cyber_ticket engine = innodb;
+alter table cyber_ticketvente engine = innodb;
+alter table cyber_ticket add constraint ck_ticket_min_sup_0 check min_conso > 0 and min_vendues > 0;
+

@@ -1,0 +1,14 @@
+{% extends "cyber/base.html" %}
+{% if conn_list %}
+	{% block contenu_head %}<h1>Connexions</h1>{% endblock %}
+	{% block contenu_interieur %}
+	<ul>
+	{% for c in conn_list %}
+		<li class="{% cycle 'row1' 'row2' %}">{{ c.date }} ({{ c.montant }} {{ c.monnaie }})</li>
+	{% endfor %}
+	</ul>{% endblock %}
+{% else %}
+	<p>Pas de Connexions</p>
+{% endif %}
+<!-- <a href="/vendeur/creer">Enregistrer un nouveau vendeur</a> -->
+

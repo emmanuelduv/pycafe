@@ -1,0 +1,28 @@
+{% extends "cyber/base.html" %}
+{% if utilisateur %}
+	{% block contenu_head %}<h1>Utilisateur <i>{{utilisateur}}</i></h1>{% endblock %}
+{% block contenu_interieur %}
+	{% if message %}
+		<p class="message">{{message}}</p>
+	{% endif %}
+	<a href="{% url accueil %}admin/cyber/utilisateur/{{utilisateur.id}}">modifier</a>
+	<a href="mailto:{{utilisateur.email}}">Écrire à 
+	{% if user.first_name %}
+		{{user.first_name}}
+	{% else %}
+		{{utilisateur.login}}
+	{% endif %}
+		{{user.last_name}}</a>
+	<p>Solde : {{utilisateur.solde}}</p>
+
+	{% if utilisateur.connexion_set %}
+		<p><a href="{% url listUtilisateurConnexions utilisateur_id=utilisateur.id %}">Connexions</a></p>
+	{% else %}
+		<p>Aucune connexion!</p>
+	{% endif %}
+	</ul>{% endblock %}
+{% else %}
+	<p>Utilisateur inconnu</p>
+{% endif %}
+<!-- <a href="/utilisateur/creer">Enregistrer un nouvel utilisateur</a> -->
+

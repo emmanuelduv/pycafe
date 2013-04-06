@@ -1,0 +1,27 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Nouveau Ticket</h1>{% endblock %}
+{% block contenu_interieur %}
+<p>Vous allez créer un ticket de connexion.<br/>
+Par défaut celui-ci est paramétré pour donner 60 minutes de connexion. 
+Vous devez remplir le prix payé par l'utilisateur, l'identifiant est modifiable.
+L'affecter à un utilisateur déjà enregistré est facultatif.
+Vous pourrez ensuite le modifier en ajoutant du crédit, <b>notez bien l'identifiant</b> : l'utilisateur en aura besoin lors de la connexion et vous pourrez le rechercher grâce à cet identifiant
+<br/>Après l'enregistrement le ticket sera affiché.</p>
+<form method="post" action="{% url newTicket %}" name="ticket_creer_form" id="ticket_creer_form">
+	{% csrf_token %}
+	<table>{{ form.as_table }}</table>
+	<center><input type="submit" value="Valider"/></center>
+</form>
+<script language="javascript" type="text/javascript">
+//function randomString() {
+	var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ";
+	var string_length = 8;
+	var randomstring = '';
+	for (var i=0; i<string_length; i++) {
+		var rnum = Math.floor(Math.random() * chars.length);
+		randomstring += chars.substring(rnum,rnum+1);
+	}
+	document.getElementById("id_identifiant").value = randomstring;
+//}
+</script>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Vendeurs</h1>{% endblock %}
+{% if vendeur_list %}
+	{% block contenu_interieur %}{% if message %}
+		<p class="message">{{ message }}</p>
+	{% endif %}
+	<ul>
+	{% for vendeur in vendeur_list %}
+		<li class="{% cycle 'row1' 'row2' %}"> <a href="{% url vendeurDetail pk=vendeur.id %}">{{ vendeur.utilisateur.user }}</a>
+		({{ vendeur.utilisateur.login }})
+		</li>
+	{% endfor %}
+	</ul>
+	{% endblock %}
+{% else %}
+	<p>Pas de vendeur!</p>
+{% endif %}

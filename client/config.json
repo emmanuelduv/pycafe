@@ -1,0 +1,27 @@
+{"lig": 4, "col": 6
+, "bts":{"bt_00": {"cmd": "firefox", "color": "white", "image": "images/firefox.png", "label": "Internet"}
+	, "bt_01": {"cmd": "firefox http://fr.wikipedia.org", "color": "white", "image": "images/wikipedia.png", "label": "Wikipedia"}
+	, "bt_02": {"cmd": "firefox http://www.google.bj/", "color": "white", "image": "images/google.png", "label": "Google"}
+	, "bt_03": {"cmd": "skype", "color": "yellow", "image": "images/skype.png", "label": "Skype"}
+	, "bt_04": {"cmd": "empathy", "color": "yellow", "image": "images/empathy.png", "label": "Chat, discussion"}
+	, "bt_05": {"cmd": "thunderbird", "color": "yellow", "image": "images/thunderbird.png", "label": "Emails"}
+	, "bt_10": {"cmd": "libreoffice", "color": "blue", "image": "images/soffice.png", "label": "Suite bureautique LibreOffice"}
+	, "bt_11": {"cmd": "libreoffice --calc", "color": "blue", "image": "images/oocalc.png", "label": "Tableur"}
+	, "bt_12": {"cmd": "libreoffice --impress", "color": "blue", "image": "images/oopres.png", "label": "Présentation"}
+	, "bt_13": {"cmd": "nautilus /etc/skel/Desktop", "color": "orange", "image": "images/other.png", "label": "Autres"}
+	, "bt_14": {"cmd": "openarena", "color": "green", "image": "images/arena.jpg", "label": "OpenArena"}
+	, "bt_15": {"cmd": "foobillard", "color": "green", "image": "images/billard.png", "label": "Billard"}
+	, "bt_20": {"cmd": "gnome-calculator", "color": "blue", "image": "images/kbruch.png", "label": "Calculette"}
+	, "bt_21": {"cmd": "/usr/local/bin/win-env", "color": "blue", "image": "images/winxp.jpg", "label": "Windows"}
+	, "bt_22": {"cmd": "libreoffice --writer", "color": "blue", "image": "images/oowriter.png", "label": "Créer docs & textes"}
+	, "bt_23": {"cmd": "kalzium", "color": "grey", "image": "images/kalzium.png", "label": "Tableau périodique"}
+	, "bt_24": {"cmd": "qtoctave", "color": "grey", "image": "images/octave.png", "label": "Octave, tracé de courbes"}
+	, "bt_25": {"cmd": "stellarium", "color": "grey", "image": "images/stellarium.png", "label": "Stellarium - Astronomie"}
+	, "bt_30": {"cmd": "pitivi", "color": "pink", "image": "images/pitivi.png", "label": "Montage vidéo - Pitivi"}
+	, "bt_31": {"cmd": "blender", "color": "pink", "image": "images/blender.png", "label": "Blender"}
+	, "bt_32": {"cmd": "scribus", "color": "pink", "image": "images/scribus.png", "label": "Affiche - Scribus"}
+	, "bt_33": {"cmd": "nted", "color": "pink", "image": "images/nted.png", "label": "Créer musique"}
+	, "bt_34": {"cmd": "audacity", "color": "pink", "image": "images/audacity.png", "label": "Montage audio - Audacity"}
+	, "bt_35": {"cmd": "gimp", "color": "pink", "image": "images/gimp.png", "label": "Édition image - Gimp"}
+	}
+}

@@ -1,0 +1,37 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Utilisateurs (inclut le staff)</h1>
+{% endblock %}
+{% block contenu_interieur %}
+{% if object_list %}
+	{% if is_paginated %}
+		<div class="pagination">
+			<span class="step-links">
+				{% if page_obj.has_previous %}
+					<a href="{% url listUtilisateurs %}page{{ page_obj.previous_page_number }}">&lt;</a>
+				{% endif %}
+
+				<span class="current">
+					Page {{ page_obj.number }} / {{ paginator.num_pages }}.
+				</span>
+
+				{% if page_obj.has_next %}
+					<a href="{% url listUtilisateurs %}page{{ page_obj.next_page_number }}">&gt;</a>
+				{% endif %}
+			</span>
+		</div>
+	{% endif %}
+
+	<ul>
+	{% for utilisateur in object_list %}
+		<li class="{% cycle 'row1' 'row2' %}"> <a href="{% url utilisateurList pk=utilisateur.id %}">{{ utilisateur.user }}</a>
+		(<span style="{% if utilisateur.vendeur %}color : red ; font-weight : bold{% else %}color : black{% endif %}">{{ utilisateur.login }}</span>)
+			{% if utilisateur.vendeur %}
+				[voir en tant que <a href="{% url vendeurDetail pk=utilisateur.vendeur.id %}">vendeur</a>](CA={{utilisateur.vendeur.mt_ventes}})
+			{% endif %}
+		</li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>Pas d'utilisateur!</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+	<head>
+		<link rel="stylesheet" href="/static/style.css"/>
+		<title>{% block title %}PyCafé{% endblock %}</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<!-- <style></style> -->
+	</head>
+	<body>{% block haut %}
+		<div id="haut" class="haut">PyCafé :: gestionnaire d'accès</div>
+		{% endblock %}
+		{% block bandeau %}
+		<div id="bandeau" class="bandeau">
+			<div class="bandeau_bloc"><a href="{% url accueil %}">Accueil</a></div>
+			<div class="bandeau_bloc"><a href="{% url listTickets %}">Tickets</a><!--<a href="/utilisateurs">Utilisateurs</a>--></div>
+			<div class="bandeau_bloc"><a href="{% url listTktVentes %}">Transactions</a></div>
+			{% if utilisateur.is_anonymous %}<div class="bandeau_bloc"><a href="{% url login %}">Connexion</a></div>
+			{% else %}
+				{% if utilisateur.get_profile.cyber.user = utilisateur %}
+				 <div class="bandeau_bloc"><a href="{% url vendeurList %}">Vendeurs</a></div>
+				 <div class="bandeau_bloc"><i>Créer</i> <a href="{% url newUtilisateur %}">Utilisateur</a> <a href="{% url newVendeur %}">Vendeur</a></div>
+				 <div class="bandeau_bloc"><i>Vendre</i> <!--<a href="/vendre">crédit</a>--> <a href="{% url newTicket %}">Ticket</a></div>
+				{% else %}
+					{% if utilisateur.get_profile.vendeur %}
+					 <div class="bandeau_bloc"><i>Vendre</i> <!--<a href="/vendre">crédit</a>--> <a href="{% url newTicket %}">Ticket</a></div>
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		</div>{% endblock %}
+		<div>
+		<div id="contenu" class="contenu">
+			<div id="contenu_head" class="contenu_head">{% block contenu_head %}Bienvenue{% endblock %}</div>
+			<div id="contenu_interieur" class="contenu_interieur">{% block contenu_interieur %}PyCafé{% endblock %}</div>
+		</div>
+			<div class="contenu_perso">
+			{% block contenu_perso %}
+			 {% if utilisateur.is_anonymous %}<a href="{% url login %}">Se connecter</a>
+			 {% else %}
+			 <a href="{% url logout %}">Se déconnecter</a>
+			 {% endif %}
+			{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>

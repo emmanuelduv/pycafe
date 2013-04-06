@@ -1,0 +1,32 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Détails d'un ticket</h1>{% endblock %}
+{% block contenu_interieur %}
+<p>Contenu actuel du ticket :</p>
+<table><tr><td>N°</td>	<td>{{ ticket.id }}</td></tr>
+<tr><td>Min <i>vendues</i></td>	<td>{{ ticket.min_vendues }}</td></tr>
+<tr><td>Min <i>conso.</i></td>	<td>{{ ticket.min_conso }}</td></tr>
+<tr><td>Mt ventes</td>	<td><a href="{% url listVentesTkt ticket_id=ticket.id %}">{{ ticket.mt_ventes }}</a></td></tr>
+<tr><td>Vendeur</td>	<td><a href="{% url vendeurDetail pk=ticket.createur.id %}">{{ ticket.createur }}</a></td></tr>
+<tr><td>Nb conn.</td>	<td><a href="{% url listSessionsTkt ticket_id=ticket.id %}">{{ ticket.nb_con }}</a></td></tr>
+<tr><td>Nb. recharges</td>	<td>{{ ticket.nb_ventes }}</td></tr>
+<tr><td>Identifiant</td>	<td>{{ ticket.identifiant }}</td></tr>
+<tr><td>Créé le</td>	<td>{{ ticket.date_crea }}</td></tr>
+<tr><td>Con. parallèles</td>	<td>{{ ticket.connexions_simultanees }}</td></tr>
+</table>
+
+<div style="border: 1px solid black;">
+<p><center><b>Ajouter du crédit sur ce ticket de connexion.</b></center></p><p>
+Le crédit s'ajoutera à celui du ticket
+<br/>Après l'enregistrement le ticket sera ré-affiché.</p>
+<form method="post" action="{% url editTicket pk=ticket.id %}" name="ticket_creer_form" id="ticket_creer_form">
+	{% csrf_token %}
+	<table>{{ form.as_table }}</table>
+	<center><input type="submit" value="Valider"/></center>
+</form>
+</div>
+<script language="javascript" type="text/javascript">
+	document.getElementById("id_identifiant").readOnly = "readonly"
+	document.getElementById("id_mt_ventes").value = 0
+	document.getElementById("id_min_vendues").value = 0
+</script>
+{% endblock %}

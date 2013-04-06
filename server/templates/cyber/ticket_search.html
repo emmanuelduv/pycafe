@@ -1,0 +1,41 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Rechercher des tickets</h1>{% endblock %}
+{% block contenu_interieur %}
+{% if message %}
+	{{ message }}
+{% endif %}
+{% if object_list %}
+	{% if is_paginated %}
+		<div class="pagination">
+			<span class="step-links">
+				{% if page_obj.has_previous %}
+					<form id="form_tickets_search_prev" name="form_tickets_search_prev" method="post" action="{% url listTickets %}page{{ page_obj.previous_page_number }}">{% csrf_token %}<input name="s" id="s" type="hidden" value="{{ searched }}"/><input type="submit" value="<"/></form>
+				{% endif %}
+
+				<span class="current">
+					Page {{ page_obj.number }} / {{ paginator.num_pages }}.
+				</span>
+
+				{% if page_obj.has_next %}
+					<form id="form_tickets_search_prev" name="form_tickets_search_prev" method="post" action="{% url listTickets %}page{{ page_obj.next_page_number }}">{% csrf_token %}<input name="s" id="s" type="hidden" value="{{ searched }}"/><input type="submit" value=">"/></form>
+				{% endif %}
+			</span>
+		</div>
+	{% endif %}
+	<table><th><tr><td>N°</td><td>Min <i>vendues</i></td><td><i>conso.</i></td><td>Total payé</td><td>Vendeur</td>
+	<td>Nb conn.</td><td>Nb. rechgt</td><td>Identifiant</td><td>Créé le</td><td>Con. parallèles</td></tr></th>
+	{% for ticket in object_list %}
+		<tr class="{% cycle 'row1' 'row2' %}"><td><a href="{% url editTicket pk=ticket.id %}">{{ ticket.id }}</a></td><td>{{ ticket.min_vendues }}</td><td>{{ ticket.min_conso }}</td>
+		<td>{{ ticket.mt_ventes }}</td><td><a href="{% url vendeurDetail pk=ticket.createur.id %}">{{ ticket.createur }}</a></td>
+		<td><a href="{% url listSessionsTkt ticket_id=ticket.id %}">{{ ticket.nb_con }}</a></td><td><a href="{% url listVentesTkt ticket_id=ticket.id %}">{{ ticket.nb_ventes }}</a></td><td>{{ ticket.identifiant }}</td>
+		<td>{{ ticket.date_crea }}</td><td>{{ ticket.connexions_simultanees }}</td></tr>
+	{% endfor %}
+	</table>
+{% endif %}
+<form id="form_tickets_search" name="form_tickets_search" method="post">
+	{% csrf_token %}
+	<center>Recherche de tickets</center>
+	<p>Chercher <input name="s" id="s" type="text"/> parmi N° et identifiant du ticket</p>
+	<p><center><input type="submit" value="Chercher!"/></center></p>
+</form>
+{% endblock %}

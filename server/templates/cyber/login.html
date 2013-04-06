@@ -1,0 +1,12 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Connexion</h1>{% endblock %}
+{% block contenu_interieur %}
+{% if message %}
+	<p class="message">{{ message }}</p>
+{% endif %}
+<form action="{% url login %}" method="post"><!--/login-->
+	{% csrf_token %}
+	<p>Utilisateur : <input type="text" name="login" value="{{login}}"/></p>
+	<p>Mot de passe : <input type="password" name="mdp" value="{{mdp}}"/></p>
+	<p><input type="submit" name="bouton_ok" value="Connexion"></p>
+</form>{% endblock %}

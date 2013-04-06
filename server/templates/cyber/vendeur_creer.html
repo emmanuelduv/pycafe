@@ -1,0 +1,9 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Nouveau vendeur</h1>{% endblock %}
+{% block contenu_interieur %}
+<form method="post" action="{% url newVendeur %}">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Valider"/>
+</form>
+{% endblock %}

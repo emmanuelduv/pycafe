@@ -1,0 +1,34 @@
+{% extends "cyber/base.html" %}
+{% if conn_list %}
+	{% block contenu_head %}<h1>Tickets</h1>{% endblock %}
+	{% block contenu_interieur %}
+	{% if is_paginated %}
+		<div class="pagination">
+			<span class="step-links">
+				{% if page_obj.has_previous %}
+					<a href="{% url listUtilisateurTkt utilisateur_id=utilisateur_id %}page{{ page_obj.previous_page_number }}"></a>
+				{% endif %}
+
+				<span class="current">
+					Page {{ page_obj.number }} / {{ paginator.num_pages }}.
+				</span>
+
+				{% if page_obj.has_next %}
+					<a href="{% url listUtilisateurTkt utilisateur_id=utilisateur_id %}page{{ page_obj.next_page_number }}">&gt;</a>
+				{% endif %}
+			</span>
+		</div>
+	{% endif %}
+	<table>
+	<tr><td>N°</a></td><td>identifiant</td><td>utilisateur</td>
+		<td>vendeur</td><td><i>min</i> vendues</td><td>conso</td><td>Payé(Nb recharges)</td></tr>
+	{% for c in object_list %}
+		<tr class="{% cycle 'row1' 'row2' %}"><td><a href="{% url editTicket pk=c.id %}">{{ c.id }}</a></td><td>{{ c.identifiant }}</td><td>{{ c.utilisateur }}</td>
+		<td><a href="{% url vendeurDetail pk=c.createur.id %}">{{ c.createur }}</a></td><td>{{ c.min_vendues }}</td><td><a href="{% url listSessionsTkt ticket_id=c.id %}">{{ c.min_conso }}</a></td><td>{{ c.mt_ventes }}(<a href="{% url listVentesTkt ticket_id=c.id %}">{{ c.nb_ventes }}</a>)</td></tr>
+	{% endfor %}
+	</table>{% endblock %}
+{% else %}
+	<p>Pas de ticket</p>
+{% endif %}
+<!-- <a href="/vendeur/creer">Enregistrer un nouveau vendeur</a> -->
+

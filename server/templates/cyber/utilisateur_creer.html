@@ -1,0 +1,14 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}
+<h1>Nouvel utilisateur</h1>{% endblock %}
+{% block contenu_interieur %}{% if message %}
+	<p class="message">{{ message }}</p>
+{% endif %}
+<div class="info">Une fois un utilisateur créé, il aura accès au service.
+Vous pouvez créer un vendeur en lui rattachant cet utilisateur s'il fait partie de votre équipe</div>
+<form method="post" action="{% url newUtilisateur %}">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Valider"/>
+</form>
+{% endblock %}

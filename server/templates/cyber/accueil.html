@@ -1,0 +1,26 @@
+{% extends "cyber/base.html" %}
+{% block contenu_head %}<h1>Bienvenue</h1>{% endblock %}
+{% block contenu_interieur %}Bienvenue sur PyCafé. 
+{% if utilisateur.is_anonymous %}Vous devez vous connecter pour avoir accès aux fonctions auxquelles vous avez droit
+{% else %}
+Le gestionnaire du cybercafé peut 
+	{% if utilisateur.get_profile.cyber.user = utilisateur %}<a href="{% url accueil %}admin/cyber/cyber/">ajouter des ordinateurs</a>
+	{% else %}ajouter des ordinateurs
+	{% endif %}
+ et 
+	{% if utilisateur.get_profile.cyber.user = utilisateur %}
+		<a href="{% url newUtilisateur %}"><!--/utilisateur/creer--> déclarer des utilisateurs</a> 
+qui pourront être des <a href="{% url newVendeur %}"><!--/vendeur/creer-->vendeurs</a>
+	{% else %}déclarer des utilisateurs qui pourront être des vendeurs
+	{% endif %}
+.
+Les utilisateurs peuvent voir leurs transactions (
+	{% if utilisateur.get_profile.cyber = utilisateur.get_profile.vendeur.cyber %}
+		<!--<a href="/vendre">achats</a>--><a href="{% url listTktVentes %}"><!--/ticket/ventes-->achats</a>) et 
+les <a href="{% url listTktSessions %}"><!--/tickets/sessions-->connexions</a>
+	{% else %}
+		achats) et les connexions
+	{% endif %}
+ effectuées dans le cybercafé.
+{% endif %}
+{% endblock %}
